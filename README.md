@@ -90,7 +90,7 @@ This wont work well since we can actually split car in half between two adjacent
 What about cars which are further away and those close by? One approach would be to resize windows to match windows used in classifier training. I finally removed this from my code as it was ridiculously slow.
 
 Another optimization is to narrow down the search space to the area of image where the road is.
-There are not cars in the sky - just yet :wink:
+There are no cars in the sky - just yet :wink:
 
 ![alt text][image4]
 
