@@ -7,7 +7,6 @@ image_types = os.listdir(basedir)
 cars = []
 for imtype in image_types:
     cars.extend(glob.glob(basedir+imtype+'/*'))
-
 print('Number of cars found:', len(cars))
 
 basedir = 'non-vehicles/'
@@ -15,7 +14,6 @@ image_types = os.listdir(basedir)
 notcars = []
 for imtype in image_types:
     notcars.extend(glob.glob(basedir+imtype+'/*'))
-
 print('Number of not cars found:', len(notcars))
 
 # %% Imports
@@ -28,6 +26,7 @@ from sklearn.svm import LinearSVC
 from sklearn.preprocessing import StandardScaler
 from skimage.feature import hog
 from sklearn.model_selection import train_test_split
+%matplotlib inline
 
 # %% Pipeline
 # Function to return HOG features and visualization
@@ -120,6 +119,7 @@ def single_img_features(image, color_space, spatial_size, hist_bins, orient, pix
         else:
             hog_features, hog_img = get_hog_features(feature_image[:,:,hog_channel], orient,
                         pix_per_cell, cell_per_block, vis, feature_vec=True)
+
         img_features.append(hog_features)
 
     if spatial_feat == True:
@@ -215,9 +215,8 @@ def visualize(fig, rows, cols, imgs, titles):
         else:
             plt.imshow(img)
             plt.title(titles[i])
-# %% TEST SINGLE IMG FEATURES
-%matplotlib inline
 
+# %% TEST SINGLE IMG FEATURES
 car_ind = np.random.randint(0, len(cars))
 notcar_ind = np.random.randint(0, len(notcars))
 
@@ -361,9 +360,9 @@ for img_src in example_images:
     window_image = draw_boxes(draw_image, hot_windows, color=(0, 0, 255), thick=6)
     images.append(window_image)
     titles.append('')
-    print(time.time() - t_s, 'seconds to search boxes in one image', len(windows), 'windows')
+    print(time.time() - t, 'seconds to search boxes in one image', len(windows), 'windows')
 
-fig = plt.figure(figsize=(12,18), dpi = 60)
+fig = plt.figure(figsize=(8,12), dpi = 100)
 visualize(fig, 5 ,2, images, titles)
 
 # %% IMPROVE PREDICTION TYPE WITH HOG COMPUTATION FOR A WHOLE PICTURE
@@ -511,7 +510,6 @@ for img_src in example_images:
 
 fig = plt.figure(figsize=(12,24), dpi = 100)
 visualize(fig, 6,2, out_images, out_titles)
-
 
 # %% TEST VIDEO
 from moviepy.editor import VideoFileClip
